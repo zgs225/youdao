@@ -1,8 +1,10 @@
 package youdao
 
 type basicField struct {
-	Phonetic string   `json:"phonetic"`
-	Explains []string `json:"explains"`
+	Phonetic   string   `json:"phonetic"`
+	UkPhonetic string   `json:"uk-phonetic"`
+	UsPhonetic string   `json:"us-phonetic"`
+	Explains   []string `json:"explains"`
 }
 
 type webField struct {
