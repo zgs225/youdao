@@ -14,4 +14,7 @@ func main() {
 	c := &youdao.Client{APPID, APPSECRET}
 	r, _ := c.Query("你好")
 	fmt.Println(*r)
+	fmt.Println(*(r.Translation))
+	fmt.Println(*(r.Basic))
+	fmt.Println(*(r.Web))
 }
