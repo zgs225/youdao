@@ -11,7 +11,10 @@ const (
 )
 
 func main() {
-	c := &youdao.Client{APPID, APPSECRET}
+	c := &youdao.Client{
+		AppID:     APPID,
+		AppSecret: APPSECRET,
+	}
 	r, _ := c.Query("你好")
 	fmt.Println(*r)
 	fmt.Println(*(r.Translation))

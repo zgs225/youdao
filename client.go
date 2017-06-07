@@ -19,6 +19,9 @@ const (
 type Client struct {
 	AppID     string
 	AppSecret string
+
+	from string
+	to   string
 }
 
 func (c *Client) sign(q, salt string) string {
@@ -42,8 +45,17 @@ func (c *Client) Query(q string) (*Result, error) {
 	salt := randString(6)
 	query := url.Values{}
 	query.Set("q", q)
-	query.Set("from", "auto")
-	query.Set("to", "auto")
+
+	from := "auto"
+	if len(c.from) > 0 {
+		from = c.from
+	}
+	to := "auto"
+	if len(c.to) > 0 {
+		to = c.to
+	}
+	query.Set("from", from)
+	query.Set("to", to)
 	query.Set("appKey", c.AppID)
 	query.Set("salt", salt)
 	query.Set("sign", c.sign(q, salt))
