@@ -36,7 +36,7 @@ func (c *Client) sign(q, salt string) string {
 
 func (c *Client) Query(q string) (*Result, error) {
 	client := &http.Client{
-		Timeout: 5 * time.Second,
+		Timeout: 10 * time.Second,
 	}
 	resource, err := url.Parse(HOST)
 	if err != nil {
