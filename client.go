@@ -47,12 +47,26 @@ func (c *Client) SetFrom(p string) error {
 	return nil
 }
 
+func (c *Client) GetFrom() string {
+	if len(c.from) == 0 {
+		return LAuto
+	}
+	return c.from
+}
+
 func (c *Client) SetTo(p string) error {
 	if !checkLanguage(p) {
 		return ErrUnsupportLanguage
 	}
 	c.to = p
 	return nil
+}
+
+func (c *Client) GetTo() string {
+	if len(c.to) == 0 {
+		return LAuto
+	}
+	return c.to
 }
 
 func (c *Client) sign(q, salt string) string {

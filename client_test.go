@@ -39,7 +39,7 @@ func TestCH2JAClient(t *testing.T) {
 
 func TestQuery(t *testing.T) {
 	c := &Client{AppID: "2f871f8481e49b4c", AppSecret: "CQFItxl9hPXuQuVcQa5F2iPmZSbN0hYS"}
-	if v, err := c.Query("你好"); err != nil {
+	if v, err := c.Query("hello"); err != nil {
 		t.Error("Query error: ", err)
 		return
 	} else {
