@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 	"net/url"
@@ -13,7 +14,21 @@ import (
 // Youdao翻译的客户端
 
 const (
-	HOST = "https://openapi.youdao.com/api"
+	HOST        = "https://openapi.youdao.com/api"
+	LAuto       = "auto"
+	LChinese    = "zh-CHS"
+	LJapanese   = "ja"
+	LEnglish    = "en"
+	LKorean     = "ko"
+	LFrance     = "fr"
+	LRussian    = "ru"
+	LPortuguese = "pt" // 葡萄牙语
+	LEspanol    = "es" // 西班牙语
+)
+
+var (
+	ErrUnsupportLanguage = errors.New("不支持的语言类型")
+	AllLanguages         = [9]string{LAuto, LChinese, LJapanese, LEnglish, LKorean, LFrance, LRussian, LPortuguese, LEspanol}
 )
 
 type Client struct {
@@ -22,6 +37,22 @@ type Client struct {
 
 	from string
 	to   string
+}
+
+func (c *Client) SetFrom(p string) error {
+	if !checkLanguage(p) {
+		return ErrUnsupportLanguage
+	}
+	c.from = p
+	return nil
+}
+
+func (c *Client) SetTo(p string) error {
+	if !checkLanguage(p) {
+		return ErrUnsupportLanguage
+	}
+	c.to = p
+	return nil
 }
 
 func (c *Client) sign(q, salt string) string {
@@ -73,4 +104,16 @@ func (c *Client) Query(q string) (*Result, error) {
 		return nil, err
 	}
 	return &r, nil
+}
+
+func checkLanguage(p string) bool {
+	for _, v := range AllLanguages {
+		if len(v) != len(p) {
+			continue
+		}
+		if v == p {
+			return true
+		}
+	}
+	return false
 }
