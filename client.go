@@ -117,6 +117,9 @@ func (c *Client) Query(q string) (*Result, error) {
 	if err != nil {
 		return nil, err
 	}
+	if r.ErrorCode != "0" {
+		return nil, getError(r.ErrorCode)
+	}
 	return &r, nil
 }
 

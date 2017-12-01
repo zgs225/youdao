@@ -12,12 +12,15 @@ type webField struct {
 	Key   string   `json:"key"`
 }
 
+type dict map[string]string
+
 type Result struct {
-	ErrorCode   string       `json:"error_code"`
+	ErrorCode   string       `json:"errorCode"`
 	Query       string       `json:"query"`
-	SpeakUrl    string       `json:"speakUrl"`
-	TSpeakUrl   string       `json:"tspeakUrl"`
 	Translation *[]string    `json:"translation"`
 	Basic       *basicField  `json:"basic"`
 	Web         *[]*webField `json:"web"`
+	Dict        *dict        `json:"dict"`
+	WebDict     *dict        `json:"webdict"`
+	L           string       `json:"l"`
 }
